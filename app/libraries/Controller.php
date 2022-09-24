@@ -9,7 +9,7 @@ class Controller
     public function model($model)
     {
         //require model file
-        require_once '..app/models/' . $model . '.php';
+        require_once '../app/models/' . $model . '.php';
 
         return new $model();
     }
@@ -23,7 +23,7 @@ class Controller
         }
         else{
             //view doesnot exists
-            die('View does not exits');
+            die('View doesnot exit');
         }
     }
 }
