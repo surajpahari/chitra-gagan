@@ -42,6 +42,7 @@ class User
             return false;
         }
     }
+    
     public function find_user_by_username($username)
     {
 
