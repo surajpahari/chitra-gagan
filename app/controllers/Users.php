@@ -184,8 +184,8 @@ class Users extends Controller
         $_SESSION['user_lname'] = $user->lname;
         $_SESSION['user_username'] = $user->username;
         $_SESSION['user_email'] = $user->email;
-        echo 'welcome '. $_SESSION['user_fname'];
-
+        // echo 'welcome '. $_SESSION['user_fname'];
+        redirect('Images/index');
     }
     public function logout()
     {
