@@ -7,6 +7,7 @@
  </head>
 
 <body>
+    <?php flash('register_sucess');?>
   <div id="bg"></div>
   <form action="<?php echo URLROOT; ?>/users/login" method="post">
     <div class="formContainer">
