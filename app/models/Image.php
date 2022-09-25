@@ -26,4 +26,20 @@ class Image
 
       
     }
+    public function get_images($uid)
+    {
+        $this->db->query('SELECT * FROM images WHERE uid = :uid');
+        $this->db->bind(':uid', $uid);
+
+        $row = $this->db->result_set();
+ 
+        if ($this->db->row_count() > 0) {
+            return $row;
+        } else {
+            return [];
+        }
+
+
+        // return $row;
+    }
 }
