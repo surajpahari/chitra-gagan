@@ -12,3 +12,5 @@ define('APPROOT',dirname(dirname(__FILE__)));
 define('URLROOT','http://localhost/Chitra-Gagan');
 //define SITENAME
 define('SITENAME','ChitraGagan');
+//defining the upload folder
+define('UPLD_FILE','/srv/http/uploads/');
