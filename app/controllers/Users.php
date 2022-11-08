@@ -5,7 +5,10 @@ class Users extends Controller
     {
         $this->user_model = $this->model('User');
     }
+    public function index(){
+        $this->view('pages/index');
 
+    }
     public function register()
     {
         //process from
@@ -185,7 +188,7 @@ class Users extends Controller
         $_SESSION['user_username'] = $user->username;
         $_SESSION['user_email'] = $user->email;
         // echo 'welcome '. $_SESSION['user_fname'];
-        redirect('Images/index');
+        redirect('');
     }
     public function logout()
     {

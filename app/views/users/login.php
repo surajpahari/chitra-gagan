@@ -1,31 +1,33 @@
-<!DOCTYPE html>
-<html>
+<?php require APPROOT . '/views/includes/header.php'; ?>
+<?php require APPROOT . '/views/includes/navbar.php'; ?>
 
-<head>
-  <title>Log in</title>
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css">
- </head>
+<div id="background"></div>
 
-<body>
-    <?php flash('register_sucess');?>
-  <div id="bg"></div>
-  <form action="<?php echo URLROOT; ?>/users/login" method="post">
-    <div class="formContainer">
-      <h1>Log in</h1>
-
-       
-      <label for="username"><b>Email</b></label>
-      <input type="text" placeholder="Enter username" name="username" value="<?php echo $data['username']?>" required>
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" value="<?php echo $data['password'] ?>" required>
-       
-
-      <div>
-        <button type="button" class="login"><a href="<?php echo URLROOT; ?>/users/register">Sign in</a></button>
-        <button type="submit" class="signup">Log in</button>
+<div class="form-wrapper">
+  <?php flash('register_success') ?>
+  <form class="entryform" action="<?php echo URLROOT; ?>/users/login" method="post">
+    <div class="form-options">
+      <input type="username" name="username" id="username" value="<?php echo $data['username']; ?>" placeholder="Your Username" />
+    </div>
+    <?php if (!empty($data['username_error'])) : ?>
+      <div class="form-options">
+        <span class="form-span"> <?php echo (!empty($data['username_error'])) ? $data['username_error'] : ''; ?> </span>
       </div>
+    <?php endif; ?>
+    <div class="form-options">
+      <input type="password" name="password" id="password" value="<?php echo $data['password']; ?>" placeholder="Your Password" />
+    </div>
+    <?php if (!empty($data['password_error'])) : ?>
+      <div class="form-options">
+        <span class="form-span"> <?php echo (!empty($data['password_error'])) ? $data['password_error'] : ''; ?> </span>
+      </div>
+    <?php endif; ?>
+    <div class="form-options">
+      <button class="entrybtn" type="submit">Login</button>
+    </div>
+    <div class="form-options">
     </div>
   </form>
-</body>
+</div>
 
-</html>
+<?php require APPROOT . '/views/includes/footer.php'; ?>

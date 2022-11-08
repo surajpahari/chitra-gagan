@@ -52,7 +52,7 @@ class Images extends Controller
                     if ($f_error === 0) {
                         if ($f_size < 100000000) {
                             $f_newname = uniqid('', true) . "." . $f_ext;
-                            $f_destination = "/srv/http/uploads/" . $f_newname;
+                            $f_destination = UPLD_FILE . "/" . $f_newname;
                             move_uploaded_file($f_temp,$f_destination);
                             $this->image_model->upload_images($data['user_id'],$f_newname);
                             $this->index();
