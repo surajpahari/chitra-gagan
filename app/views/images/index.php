@@ -19,6 +19,13 @@
   <body>
     <a href=<?php echo URLROOT . '/images/upload' ?>>upload</a>
 
+    <div class="modal-wrapper">
+      <div class="modal">
+        <div class="left">l</div>
+        <div class="right">r</div>
+      </div>
+    </div>
+    
     <div class="row">
       <div class="column">
         <?php
@@ -37,7 +44,7 @@
       <?php
               }
       ?>
-      <img src=<?= $path . $image->location ?>>
+      <img src=<?= $path . $image->location ?> class="image">
       <?php $i++; ?>
       <br>
 <?php
