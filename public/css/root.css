@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap');
+
+:root{
+  --color-white: hsl(252, 30%, 100%);
+  --color-light: hsl(252, 30%, 95%);
+  --color-faded: hsl(204, 8%, 76%);;
+  --color-gray: hsl(0, 0%, 75%);
+  --color-primary: hsl(208, 100%, 51%); 
+  --color-primary-faded: hsl(210, 93%, 95%);
+  --color-secondary: hsl(252, 100%, 90%);
+  --color-success: hsl(145, 63%, 40%);
+  --color-danger: hsl(356, 100%, 41%);
+  --color-dark: hsl(252, 30%, 17%);
+  --color-black: hsl(252, 30%, 10%);
+
+  --border-radius: 1.5rem;
+  --btn-border-radius: 0.2rem;
+  --card-border-radius: 1rem;
+  --btn-padding: 0.6rem 2rem;
+  --card-padding: 1rem;
+  --input-padding: 0.6rem 1rem;
+
+  --sticky-top-left: 5.4rem;
+  --sticky-top-right: -18rem;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  border: none;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--color-dark);
+  background: var(--color-white);
+  overflow-x: hidden;
+}
+
+/* General Styles */
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.btn {
+  display: inline-block;
+  font-weight: 500;
+  padding: 0.1rem 0.1rem;
+  cursor: pointer;
+  transition: all 250ms ease;
+  font-size: 1rem;
+  width: max-content;
+  border-radius: var(--btn-border-radius);
+  margin: 0.1rem;
+}
+
+.btn-text {
+  padding: var(--btn-padding);
+  border-radius: var(--border-radius);
+}
+
+.btn:hover{
+  opacity: 0.9;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.btn-danger {
+  background: var(--color-danger);
+  color: var(--color-white);
+}
+
+.btn-success {
+  background: var(--color-success);
+  color: var(--color-white);
+}
+
+/* MEDIA QUERIES */
+@media screen and (max-width: 1200px){
+  .container {
+    width: 96%;
+  } 
+}
