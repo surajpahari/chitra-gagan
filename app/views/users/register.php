@@ -1,36 +1,57 @@
-<!DOCTYPE html>
-<html>
+<?php require APPROOT . '/views/includes/header.php'; ?>
+<?php require APPROOT . '/views/includes/navbar.php'; ?>
 
-<head>
-  <title>Signup Form</title>
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css">
-</head>
+<div id="background"></div>
 
-<body>
-  <div id="bg"></div>
-  <form action="<?php echo URLROOT; ?>/users/register" method="post">
-    <div class="formContainer">
-      <h1>Sign Up </h1>
-
-      <label for="First Name"><b>First Name</b></label>
-      <input type="text" placeholder="Enter First Name" name="fname" value="<?php echo $data['fname'] ?>" required>
-      <label for="Last  Name"><b>Last Name</b></label>
-      <input type="text" placeholder="Enter Last Name" name="lname" value="<?php echo $data['lname'] ?>" required>
-      <label for="email"><b>Email</b></label>
-      <input type="email" placeholder="Enter Email" name="email" value="<?php echo $data['email'] ?>" required>
-      <label for="email"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="username" value="<?php echo $data['username'] ?>" required>
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" value="<?php echo $data['password'] ?>" required>
-      <label for="ConfirmPassword"><b>Confirm Password</b></label>
-      <input type="password" placeholder="Confirm Password" name="confirm_password" value="<?php echo $data['confirm_password'] ?>" required>
-
-      <div>
-        <button type="button" class="login"><a href="<?php echo URLROOT; ?>/users/login">Log in</a></button>
-        <button type="submit" class="signup">Sign Up</button>
+<div class="form-wrapper">
+  <form class="entryform" action="<?php echo URLROOT; ?>/users/register" method="post">
+    <div class="form-options">
+      <input type="text" placeholder="Enter First Name" name="fname" id="fname" value="<?php echo $data['fname']; ?>" placeholder="First Name" required>
+    </div>
+    <div class="form-options">
+      <input type="text" placeholder="Enter Last Name" name="lname" id="lname" value="<?php echo $data['lname']; ?>" placeholder="Last Name" required>
+    </div>
+    <?php if (!empty($data['name_error'])) : ?>
+      <div class="form-options">
+        <span class="form-span"> <?php echo (!empty($data['name_error'])) ?  $data['name_error'] : '';  ?> </span>
       </div>
+    <?php endif; ?>
+    <div class="form-options">
+      <input type="email" name="email" id="email" value="<?php echo $data['email']; ?>" placeholder="Your Email" required />
+    </div>
+    <?php if (!empty($data['email_error'])) : ?>
+      <div class="form-options">
+        <span class="form-span"> <?php echo (!empty($data['email_error'])) ?  $data['email_error'] : '';  ?> </span>
+      </div>
+    <?php endif; ?>
+    <div class="form-options">
+      <input type="text" placeholder="Enter Username" name="username" id="username" value="<?php echo $data['username'] ?>" required>
+    </div>
+    <?php if (!empty($data['username_error'])) : ?>
+      <div class="form-options">
+        <span class="form-span"> <?php echo (!empty($data['username_error'])) ?  $data['username_error'] : '';  ?> </span>
+      </div>
+    <?php endif; ?>
+    <div class="form-options">
+      <input type="password" name="password" id="password" value="<?php echo $data['password']; ?>" placeholder="Password" />
+    </div>
+    <?php if (!empty($data['password_error'])) : ?>
+      <div class="form-options">
+        <span class="form-span"> <?php echo (!empty($data['password_error'])) ?  $data['password_error'] : '';  ?> </span>
+      </div>
+    <?php endif; ?>
+    <div class="form-options">
+      <input type="password" name="confirm_password" id="confirm_password" value="<?php echo $data['confirm_password']; ?>" placeholder="Confirm Password" />
+    </div>
+    <?php if (!empty($data['confirm_password_error'])) : ?>
+      <div class="form-options">
+        <span class="form-span"> <?php echo (!empty($data['confirm_password_error'])) ?  $data['confirm_password_error'] : '';  ?> </span>
+      </div>
+    <?php endif; ?>
+    <div class="form-options">
+      <button class="entrybtn" type="submit">Register</button>
     </div>
   </form>
-</body>
+</div>
 
-</html>
+<?php require APPROOT . '/views/includes/footer.php'; ?>
