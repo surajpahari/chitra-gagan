@@ -92,4 +92,11 @@ class Images extends Controller
             
         }
     }
+    public function profile_upload()
+    {
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        } else {
+        $this->view('images/upload');
+      }
+    }
 }
