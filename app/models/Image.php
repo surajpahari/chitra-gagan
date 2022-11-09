@@ -59,4 +59,73 @@ class Image
 
         return $row;
     }
+    public function add_like($uid, $image_id)
+    {
+        if (!$this->check_like($uid, $image_id)) {
+            $this->save_like($uid, $image_id);
+            $this->db->query('UPDATE images set likes=likes+1 where uid=:uid && id =:image_id');
+            $this->db->bind(':uid', $uid);
+            $this->db->bind(':image_id', $image_id);
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public function sub_like($uid, $image_id)
+    {
+        if ($this->check_like($uid, $image_id)) {
+            $this->delete_like($uid, $image_id);
+            $this->db->query('UPDATE images set likes=likes-1 where uid=:uid && id =:image_id');
+            $this->db->bind(':uid', $uid);
+            $this->db->bind(':image_id', $image_id);
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public function check_like($uid, $image_id)
+    {
+        $this->db->query('SELECT * FROM liked where  uid=:uid && image_id=:image_id');
+        $this->db->bind(':uid', $uid);
+        $this->db->bind(':image_id', $image_id);
+        $this->db->execute();
+        $row = $this->db->single_result();
+
+        if ($this->db->row_count() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function save_like($uid, $image_id)
+    {
+        $this->db->query('INSERT INTO liked(uid,image_id) VALUES (:uid , :image_id)');
+        $this->db->bind(':uid', $uid);
+        $this->db->bind(':image_id', $image_id);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        };
+    }
+    public function delete_like($uid, $image_id)
+    {
+        $this->db->query('DELETE FROM liked where uid = :uid && image_id = :image_id');
+        $this->db->bind(':uid', $uid);
+        $this->db->bind(':image_id', $image_id);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        };
+    }
 }
