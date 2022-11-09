@@ -16,6 +16,17 @@ class Images extends Controller
         
         $this->view('images/index',$data);
     }
+    public function get_image_info($image_id)
+    {
+      $data = $this->image_model->get_image_info($image_id);
+      print_r($data);
+    }
+    public function get_creator_info($image_id)
+    {
+      $data = $this->image_model->get_creator_data($image_id);
+      print_r($data);
+    }
+  
     public function upload()
     {
         $data = [];

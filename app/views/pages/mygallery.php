@@ -42,4 +42,16 @@
     </span>
   </div>
 
- 
+  <!-- Modal Content (The Image) -->
+  <img class="modal-content" id="img01">
+
+  <!-- Modal Caption (Image Text) -->
+  <div id="caption"></div>
+  <span class="close">download</span>
+  <div class="close" id="likeButton" >likes</div>
+</div>
+    </div>
+  </div>
+</div>
+
+<?php require APPROOT . '/views/includes/footer.php'; ?>
