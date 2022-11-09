@@ -98,4 +98,21 @@ class Images extends Controller
         $this->view('images/upload');
       }
     }
+    public function add_like($alt)
+    {
+        $info = explode("X:",$alt);
+        $data = $this->image_model->add_like($info[0],$info[1]);
+        echo $data;
+    }
+    public  function sub_like($alt){
+
+        $info = explode("X:",$alt);
+        $data = $this->image_model->sub_like($info[0],$info[1]);
+        echo $data;
+    }
+    public function check_like($alt){
+        $info = explode("X:",$alt);
+        $data = $this->image_model->check_like($info[0],$info[1]);
+        echo $data;
+    }
 }

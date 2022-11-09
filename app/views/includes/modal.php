@@ -18,4 +18,5 @@
   <div id="caption"></div>
   <span class="close">download</span>
   <div class="close" id ="likeButton" >likes</div>
+  <div class ="close" id= "likeCount"></div>
 </div>

@@ -36,24 +36,5 @@
 
 
 
-<div id="myModal" class="modal">
-  <!-- The Close Button -->
-  <span class="close">close</span>
-  <br>
-  <div class="nav__profile-image">
-    <img  id="modalprofile" src="<?php echo URLROOT; ?>/profile/" alt="avatar" />
-  </div>
-  <div class="nav__profile-options">
-       <span id="modalUsername">
-       </span>
-  </div>
-
-  <!-- Modal Content (The Image) -->
-  <img class="modal-content" id="img01">
-
-  <!-- Modal Caption (Image Text) -->
-  <div id="caption"></div>
-  <span class="close">download</span>
-  <div class="close" id ="likeButton" >likes</div>
-</div>
+<<?php require APPROOT . '/views/includes/modal.php'; ?>
 <?php require APPROOT . '/views/includes/footer.php'; ?>
