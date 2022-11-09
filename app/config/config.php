@@ -14,3 +14,5 @@ define('URLROOT','http://localhost/Chitra-Gagan');
 define('SITENAME','ChitraGagan');
 //defining the upload folder
 define('UPLD_FILE','/srv/http/uploads/');
+//defining the profile upload
+define('PROF_FOLD','/srv/http/profile/');

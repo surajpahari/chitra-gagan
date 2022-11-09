@@ -26,4 +26,5 @@ class Controller
             die('View doesnot exit');
         }
     }
+    
 }

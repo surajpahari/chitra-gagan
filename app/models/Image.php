@@ -128,4 +128,25 @@ class Image
             return false;
         };
     }
+
+    public function profile_upload($uid, $location)
+    {
+        $this->db->query('UPDATE users set profile=:location where id=:uid');
+        // bind values
+        $this->db->bind(':uid', $uid);
+        $this->db->bind(':location', $location);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    public function fetch_profile($uid){
+        $this->db->query('SELECT  profile FROM users where id =:uid');
+        $this->db->bind(':uid', $uid);
+        $this->db->execute();
+        $row = $this->db->result_set();
+        return $row;
+    }
 }

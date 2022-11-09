@@ -28,6 +28,6 @@
         }
       };
 ?>
- 
 <?php require APPROOT . '/views/includes/modal.php'; ?>
+<script type="text/javascript" src="<?php echo URLROOT;?>/js/modal.js"></script>
 <?php require APPROOT . '/views/includes/footer.php'; ?>

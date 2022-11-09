@@ -28,4 +28,9 @@ class Pages extends Controller
 
         $this->view('pages/mygallery', $data);
     }
+    public function profile_upload(){
+        $uid = $_SESSION['user_id'];
+        $data = $this->image_model->fetch_profile($uid);
+        $this->view('pages/profile_upload', $data);
+    }
 }

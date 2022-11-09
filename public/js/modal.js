@@ -112,7 +112,7 @@ function likePlus(alt) {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText == "1") {
         currentlikes++;
-        document.getElementById("likeCount").innerHTML = currentlikes ;
+        document.getElementById("likeCount").innerHTML = currentlikes;
 
       }
     }
