@@ -33,17 +33,18 @@
     </div>
   </div>
 </div>
-<div id="myModal" class="modal">
 
+
+
+<div id="myModal" class="modal">
   <!-- The Close Button -->
   <span class="close">close</span>
   <br>
   <div class="nav__profile-image">
-    <img src="<?php echo URLROOT; ?>/images/avatar.jpg" alt="avatar" />
+    <img  id="modalprofile" src="<?php echo URLROOT; ?>/profile/" alt="avatar" />
   </div>
   <div class="nav__profile-options">
-       <span>
-        Xavier
+       <span id="modalUsername">
        </span>
   </div>
 
@@ -53,6 +54,6 @@
   <!-- Modal Caption (Image Text) -->
   <div id="caption"></div>
   <span class="close">download</span>
-  <div class="close" id ="likeButton" >like</div>
+  <div class="close" id ="likeButton" >likes</div>
 </div>
 <?php require APPROOT . '/views/includes/footer.php'; ?>

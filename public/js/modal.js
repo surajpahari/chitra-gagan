@@ -1,5 +1,5 @@
 const site = "http://localhost/Chitra-Gagan/";
-
+const profile = "../../profile/"
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -29,6 +29,7 @@ console.log(span);
 // When the user clicks on <span> (x), close the modal
 span.onclick = function () {
   modal.style.display = "none";
+  clearModal();
 };
 
 function extract_info(alt) {
@@ -41,7 +42,6 @@ function fetchImageData(imageId) {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let response = JSON.parse(this.responseText);
-        console.log(response);
     }
   };
   xhttp.open("POST", site + "images/get_image_info/33", true);
@@ -53,8 +53,19 @@ function fetchCreatorData(userId) {
     if (this.readyState == 4 && this.status == 200) {
         let response = JSON.parse(this.responseText)
         console.log(response);
+        setUserInfo(response);
+
     }
   };
   xhttp.open("POST", site + "images/get_creator_info/5", false);
   xhttp.send();
+}
+function setUserInfo(userInfo){
+    document.getElementById('modalUsername').innerHTML = userInfo.username;
+    // let profileSource = document.getElementById('modalProfile').src.split('X:');
+    
+    document.getElementById('modalProfile').src = profile + userInfo.profile;
+}
+function clearModal(){
+    document.getElementById('modalProfile').src = '';
 }
