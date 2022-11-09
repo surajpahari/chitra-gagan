@@ -15,15 +15,13 @@ for (i = 0; i < images.length; i++) {
     modal.style.display = "block";
     modalImg.src = this.src;
     captionText.innerHTML = this.alt;
-    let requestFor=extract_info(this.alt);
+    let requestFor = extract_info(this.alt);
     fetchImageData(requestFor.image_id);
-    fetchCreatorData(requestFor.id)
+    fetchCreatorData(requestFor.id);
     // console.log(mesg);
-     console.log("haha");
+    console.log("haha");
   };
 }
-
-
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
@@ -38,28 +36,25 @@ function extract_info(alt) {
   return { id: alt_array[0], image_id: alt_array[1], title: alt_array[2] };
 }
 
-
 function fetchImageData(imageId) {
   const xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
+  xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-     
-     console.log(this.responseText);
+      let response = JSON.parse(this.responseText);
+        console.log(response);
     }
   };
-  xhttp.open("POST", site+"images/get_image_info/33",true);
+  xhttp.open("POST", site + "images/get_image_info/33", true);
   xhttp.send();
-
 }
-function fetchCreatorData(userId){
+function fetchCreatorData(userId) {
   var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if(this.readyState == 4 && this.status == 200){
-      console.log(this.responseText);
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        let response = JSON.parse(this.responseText)
+        console.log(response);
     }
-  }
-  xhttp.open("POST", site+"images/get_creator_info/5",false);
+  };
+  xhttp.open("POST", site + "images/get_creator_info/5", false);
   xhttp.send();
-
 }
- 

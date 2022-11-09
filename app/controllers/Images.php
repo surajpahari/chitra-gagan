@@ -19,13 +19,12 @@ class Images extends Controller
     public function get_image_info($image_id)
     {
       $data = $this->image_model->get_image_info($image_id);
-      print_r($data);
+      echo json_encode(json_decode(json_encode($data), true));
     }
     public function get_creator_info($image_id)
     {
       $data = $this->image_model->get_creator_data($image_id);
-      print_r($data);
-    }
+      echo json_encode(json_decode(json_encode($data), true));    }
   
     public function upload()
     {
