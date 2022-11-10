@@ -14,7 +14,7 @@ for (i = 0; i < images.length; i++) {
   images[i].onclick = function () {
     let no = i;
     this.info = this;
-    modal.style.display = "block";
+    modal.style.display = "flex";
     modalImg.src = this.src;
     captionText.innerHTML = this.alt;
     let requestFor = extract_info(this.alt);
@@ -49,7 +49,7 @@ function fetchImageData(imageId) {
       setImageInfo(response);
     }
   };
-  xhttp.open("POST", site + "images/get_image_info/"+extract_info(currentalt).image_id, true);
+  xhttp.open("POST", site + "images/get_image_info/" + extract_info(currentalt).image_id, true);
   xhttp.send();
 }
 
@@ -62,7 +62,7 @@ function fetchCreatorData(userId) {
       setUserInfo(response);
     }
   };
-  xhttp.open("POST", site + "images/get_creator_info/"+extract_info(currentalt).id, false);
+  xhttp.open("POST", site + "images/get_creator_info/" + extract_info(currentalt).id, false);
   xhttp.send();
 }
 function setUserInfo(userInfo) {
@@ -98,12 +98,12 @@ likeButton.addEventListener("click", () => {
  
 function setLiked(){
   likeButtonStatus = 1;
-  likeButton.innerHTML = "liked";
+  likeButton.innerHTML = '<i class="uil uil-thumbs-up"></i>'
   likeButton.style.color = "red";
 }
 function unsetLiked(){
   likeButtonStatus = 0;
-  likeButton.innerHTML = "like";
+  likeButton.innerHTML = '<i class="uil uil-thumbs-up"></i>'
   likeButton.style.color = "white";
 }
 function likePlus(alt) {

@@ -16,3 +16,5 @@ define('SITENAME','ChitraGagan');
 define('UPLD_FILE','/srv/http/uploads/');
 //defining the profile upload
 define('PROF_FOLD','/srv/http/profile/');
+//defining the host
+define('SITE','http://localhost/');

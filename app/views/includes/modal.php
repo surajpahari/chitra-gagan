@@ -1,22 +1,35 @@
-<?php $profile_path = "../../profile/"?>
-<div id="myModal" class="modal">
-  <!-- The Close Button -->
-  <span class="close">close</span>
-  <br>
-  <div class="nav__profile-image">
-    <img  id="modalProfile" src="<?php echo $profile_path?>" alt="avatar" />
-  </div>
-  <div class="nav__profile-options">
-       <span id="modalUsername">
-       </span>
-  </div>
+<?php $profile_path = SITE."profile" ?>
 
-  <!-- Modal Content (The Image) -->
-  <img class="modal-content" id="img01">
+<div class="modalwrapper" id="">
+</div>
 
-  <!-- Modal Caption (Image Text) -->
-  <div id="caption"></div>
-  <span class="close">download</span>
-  <div class="close" id ="likeButton" >likes</div>
-  <div class ="close" id= "likeCount"></div>
+<div class="modal" id="myModal">
+  <div class="imageWrapper">
+    <div>
+      <a class="close"> <i class="uil uil-times-circle closebtn"></i></a>
+    </div>
+    <div class="imageDiv">
+      <img class="modal-content modalImage" id="img01">
+      <div class="imageContent">
+        <div class="uploader">
+          <div class="nav__profile-image">
+            <img id="modalProfile" src="<?php echo $profile_path ?>" alt="avatar" />
+          </div>
+          <p class="modalUsername" id="modalUsername"></p>
+        </div>
+        <div class="caption">
+          <span id="caption">cap</span>
+        </div>
+        <div class="imageInfo">
+          <div class="imageActions">
+            <button class="btn btn-primary">Download</button>
+            <button class="btn btn-success" id="likeButton"><i class="uil uil-thumbs-up"></i></button>
+          </div>
+          <div>
+            <span>Likes: </span><span id="likeCount"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
