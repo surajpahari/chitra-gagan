@@ -19,12 +19,12 @@ class Images extends Controller
     $row3 = array();
 
     array_push($row1, $data[0]);
-    for ($i = 1; $i < count($data); $i++) {
-      if (($i + 2) % 3 == 0) {
+    for ($i = 0; $i < count($data); $i++) {
+      if (($i + 3) % 3 == 0) {
         array_push($row1, $data[$i]);
-      } elseif (($i + 1) % 3 == 0) {
+      } elseif (($i + 2) % 3 == 0) {
         array_push($row2, $data[$i]);
-      } elseif ($i % 3 == 0) {
+      } elseif ($i + 1 % 3 == 0) {
         array_push($row3, $data[$i]);
       }
     }
