@@ -57,7 +57,7 @@ function fetchImageData(imageId) {
       console.log(response);
       setImageInfo(response);
       setDownloadLink(response);
-    }
+     }
   };
   xhttp.open(
     "POST",
@@ -83,6 +83,21 @@ function fetchCreatorData(userId) {
   );
   xhttp.send();
 }
+function getImageProperty(file){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      // let response = JSON.parse(this.responseText);
+      console.log(this.responseText);
+     }
+  };
+  xhttp.open(
+    "POST",
+    site + "images/get_image_property/"+file,
+    false
+  );
+  xhttp.send();
+}
 function setUserInfo(userInfo) {
   console.log('username is '+ userInfo.username)
   console.log('username is '+ userInfo.profile)
@@ -92,9 +107,10 @@ function setUserInfo(userInfo) {
 }
 
 function setImageInfo(imageInfo) {
-  // console.log(imageInfo.like=";like");
+  console.log(imageInfo);
   currentlikes = imageInfo.likes;
   document.getElementById("likeCount").innerHTML = imageInfo.likes;
+  getImageProperty(imageInfo.location);
 }
 
 //for like
@@ -170,14 +186,24 @@ function checkIfLiked(alt) {
 function setDownloadLink(imageInfo) {
   // console.log(imageInfo.location);
   downloadLink.addEventListener("click", function () {
-    download_file(imageInfo.location);
+    downloadFile(imageInfo.location);
       // console.log(imageInfo.location);
     // console.log("here01  ".imageInfo.location);
   });
 }
-function download_file(file) {
+function downloadFile(file) {
   window.location = site + "images/downloads_file/" + file;
 }
-function visit_profile(){
-
-}
+ 
+var visitProfile = (currentUploaderId) => {
+  var triggerClass = "uploader";
+ if (currentUploaderId != undefined) {
+   let profile_trigger = document.getElementsByClassName(triggerClass);
+   for (i = 0; i < profile_trigger.length; i++) {
+     profile_trigger[i].onclick = function () {
+       window.location = site + "users/visit_profile/"+currentUploaderId;
+       console.log(currentUploaderId);
+     };
+   }
+ }
+};

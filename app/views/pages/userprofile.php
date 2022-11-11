@@ -34,7 +34,6 @@
       <div class="collection">
         <?php foreach ($data['images'][2] as $row3) : ?>
           <?php if (!empty($row1)) : ?>
-
             <img class="display-image" src=<?= RUPLD_FILE . $row3->location ?> alt=<?= $row3->uid . "X:" . $row3->id ?>>
           <?php endif; ?>
         <?php endforeach; ?>

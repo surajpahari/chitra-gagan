@@ -20,6 +20,10 @@
         <div class="caption">
           <span id="caption">cap</span>
         </div>
+        <div>
+        <div class="imageProperty">
+          <span id = "imageData"></span>
+        </div>
         <div class="imageInfo">
           <div class="imageActions">
             <button class="btn btn-primary" id="downloadLink">Download</button>

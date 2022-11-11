@@ -241,4 +241,8 @@ class Images extends Controller
         echo $ex->getMessage();
     }
   }
+  function get_image_property($file){
+    var_dump(getimagesize(UPLD_FILE.$file));
+    
+  }
 }

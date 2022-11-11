@@ -241,34 +241,38 @@ class Users extends Controller
                 // }
             }
             $this->view("pages/search_view", $data);
-            return $data;
+            // return $data;
         }
     }
     public function visit_profile($uid)
     {
-        $data1 =  $this->image_model->get_creator_data($uid);
-        $data2 = $this->image_model->get_images($uid);
-    
-        // $data = json_encode(json_decode(json_encode($data), true));
-        // $this->view("pages/userprofile", $data);
-        $row1 = array();
-        $row2 = array();
-        $row3 = array();
-        if(!empty($data2)){
-        array_push($row1, $data2[0]);
-        for ($i = 0; $i < count($data2); $i++) {
-            if (($i + 3) % 3 == 0) {
-                array_push($row1, $data2[$i]);
-            } elseif (($i + 2) % 3 == 0) {
-                array_push($row2, $data2[$i]);
-            } elseif (($i + 1) % 3 == 0) {
-                array_push($row3, $data2[$i]);
+        if (isset($_SESSION['user_id'])) {
+            $data1 =  $this->image_model->get_creator_data($uid);
+            $data2 = $this->image_model->get_images($uid);
+
+            // $data = json_encode(json_decode(json_encode($data), true));
+            // $this->view("pages/userprofile", $data);
+            $row1 = array();
+            $row2 = array();
+            $row3 = array();
+            if (!empty($data2)) {
+                array_push($row1, $data2[0]);
+                for ($i = 0; $i < count($data2); $i++) {
+                    if (($i + 3) % 3 == 0) {
+                        array_push($row1, $data2[$i]);
+                    } elseif (($i + 2) % 3 == 0) {
+                        array_push($row2, $data2[$i]);
+                    } elseif (($i + 1) % 3 == 0) {
+                        array_push($row3, $data2[$i]);
+                    }
+                }
             }
+            $new_data2 = array($row1, $row2, $row3);
+            $data = ['user' => $data1, 'images' => $new_data2];
+            // $data = json_encode(json_decode(json_encode($data), true));
+            $this->view("pages/userprofile", $data);
+        } else {
+            $this->view(SITE);
         }
-    }
-        $new_data2 = array($row1, $row2, $row3);
-        $data = ['user' => $data1, 'images' => $new_data2];
-        // $data = json_encode(json_decode(json_encode($data), true));
-        $this->view("pages/userprofile",$data);
     }
 }
