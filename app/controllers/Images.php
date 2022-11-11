@@ -7,7 +7,7 @@ class Images extends Controller
       redirect('users/login');
     }
     $this->image_model = $this->model('Image');
-    $this->new_data = array ();
+    $this->new_data = array();
   }
   public function index()
   {
@@ -229,20 +229,22 @@ class Images extends Controller
     }
   }
 
-  public function downloads_file($file){
+  public function downloads_file($file)
+  {
     // $file = $_GET['filename'];
-    $filename = basename( $file );
-    $filepath = UPLD_FILE.$filename;
+    $filename = basename($file);
+    $filepath = UPLD_FILE . $filename;
     try {
-        header( 'Content-type: image/*' );
-        header( "Content-Disposition: attachment; filename=\"$filepath\"" );
-        readfile( $filepath);
-    } catch ( Exception $ex ) {
-        echo $ex->getMessage();
+      header('Content-type: image/*');
+      header("Content-Disposition: attachment; filename=\"$filepath\"");
+      readfile($filepath);
+    } catch (Exception $ex) {
+      echo $ex->getMessage();
     }
   }
-  function get_image_property($file){
-    var_dump(getimagesize(UPLD_FILE.$file));
-    
+  function get_image_property($file)
+  {
+    $data = getimagesize(UPLD_FILE . $file);
+    echo json_encode(json_decode(json_encode($data), true));
   }
 }

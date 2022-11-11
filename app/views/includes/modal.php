@@ -1,4 +1,4 @@
-<?php $profile_path = SITE."profile" ?>
+<?php $profile_path = SITE . "profile" ?>
 
 <div class="modalwrapper" id="">
 </div>
@@ -21,19 +21,27 @@
           <span id="caption">cap</span>
         </div>
         <div>
-        <div class="imageProperty">
-          <span id = "imageData"></span>
-        </div>
-        <div class="imageInfo">
-          <div class="imageActions">
-            <button class="btn btn-primary" id="downloadLink">Download</button>
-            <button class="btn btn-success" id="likeButton"><i class="uil uil-thumbs-up"></i></button>
+          <div class="imageProperty">
+            <span id="imageData">
+              <ul>
+                <!-- <li id = "dimension"> Dimension</li> -->
+                <li id="imageWidth">type</li>
+                <li id="imageHeight"> Dimension</li>
+                <li id="imageType">type</li>
+                <li id="imageBits">type</li>
+              </ul>
+            </span>
           </div>
-          <div>
-            <span>Likes: </span><span id="likeCount"></span>
+          <div class="imageInfo">
+            <div class="imageActions">
+              <button class="btn btn-primary" id="downloadLink">Download</button>
+              <button class="btn btn-success" id="likeButton"><i class="uil uil-thumbs-up"></i></button>
+            </div>
+            <div>
+              <span>Likes: </span><span id="likeCount"></span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>

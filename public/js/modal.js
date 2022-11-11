@@ -57,7 +57,7 @@ function fetchImageData(imageId) {
       console.log(response);
       setImageInfo(response);
       setDownloadLink(response);
-     }
+    }
   };
   xhttp.open(
     "POST",
@@ -83,27 +83,24 @@ function fetchCreatorData(userId) {
   );
   xhttp.send();
 }
-function getImageProperty(file){
+function getImageProperty(file) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      // let response = JSON.parse(this.responseText);
-      console.log(this.responseText);
-     }
+      let response = JSON.parse(this.responseText);
+      console.log(response);
+      setImageProperty(response);
+    }
   };
-  xhttp.open(
-    "POST",
-    site + "images/get_image_property/"+file,
-    false
-  );
+  xhttp.open("POST", site + "images/get_image_property/" + file, false);
   xhttp.send();
 }
 function setUserInfo(userInfo) {
-  console.log('username is '+ userInfo.username)
-  console.log('username is '+ userInfo.profile)
+  console.log("username is " + userInfo.username);
+  console.log("username is " + userInfo.profile);
   document.getElementById("modalUsername").innerHTML = userInfo.username;
   // let profileSource = document.getElementById('modalProfile').src.split('X:');
-    document.getElementById("modalProfile").src = profile + userInfo.profile;
+  document.getElementById("modalProfile").src = profile + userInfo.profile;
 }
 
 function setImageInfo(imageInfo) {
@@ -187,23 +184,39 @@ function setDownloadLink(imageInfo) {
   // console.log(imageInfo.location);
   downloadLink.addEventListener("click", function () {
     downloadFile(imageInfo.location);
-      // console.log(imageInfo.location);
+    // console.log(imageInfo.location);
     // console.log("here01  ".imageInfo.location);
   });
 }
 function downloadFile(file) {
   window.location = site + "images/downloads_file/" + file;
 }
- 
-var visitProfile = (currentUploaderId) => {
+
+function visitProfile(currentUploaderId) {
   var triggerClass = "uploader";
- if (currentUploaderId != undefined) {
-   let profile_trigger = document.getElementsByClassName(triggerClass);
-   for (i = 0; i < profile_trigger.length; i++) {
-     profile_trigger[i].onclick = function () {
-       window.location = site + "users/visit_profile/"+currentUploaderId;
-       console.log(currentUploaderId);
-     };
-   }
- }
-};
+  if (currentUploaderId != undefined) {
+    let profile_trigger = document.getElementsByClassName(triggerClass);
+    for (i = 0; i < profile_trigger.length; i++) {
+      profile_trigger[i].onclick = function () {
+        window.location = site + "users/visit_profile/" + currentUploaderId;
+        console.log(currentUploaderId);
+      };
+    }
+  }
+}
+function setImageProperty(properties) {
+  let height = document.getElementById("imageHeight");
+  let width = document.getElementById("imageWidth");
+  let type = document.getElementById("imageType");
+  let bits = document.getElementById("imageBits");
+  let dimension = extractHeightWidth(properties["3"])
+  width.innerHTML ="width:" + dimension.width;
+  height.innerHTML ="height:" + dimension.height;
+  type.innerHTML ="type:"+ properties.mime;
+  bits.innerHTML = "bits:"+properties.bits;
+}
+//exploding dimension string
+function extractHeightWidth(dimension){
+ let data=dimension.split('"');
+ return {width:data[1],height:data[3]}
+}
