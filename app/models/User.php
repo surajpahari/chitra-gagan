@@ -19,13 +19,12 @@ class User
         $this->db->bind(':username', $data['username']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':password', $data['password']);
-        
+
         //execute
-        if($this->db->execute()){
+        if ($this->db->execute()) {
             return true;
-        }
-        else{
-            return false; 
+        } else {
+            return false;
         }
     }
 
@@ -42,7 +41,7 @@ class User
             return false;
         }
     }
-    
+
     public function find_user_by_username($username)
     {
 
@@ -58,17 +57,56 @@ class User
         }
     }
 
-    public function login($username,$password){
+    public function login($username, $password)
+    {
         $this->db->query('SELECT * FROM users where username = :username');
-        $this->db->bind(':username',$username);
+        $this->db->bind(':username', $username);
         $row = $this->db->single_result();
         $hashed_password = $row->password;
-        if(password_verify($password,$hashed_password)){
+        if (password_verify($password, $hashed_password)) {
             return $row;
-        }
-        else{
+        } else {
             return false;
         }
+    }
+    public function search_like_profile($username)
+    {
+        $search = '%'.$username.'%';
+        $this->db->query('SELECT id,username,profile FROM users WHERE username like :pattern && id NOT IN (SELECT id FROM users WHERE username = :username )');
 
+        // $this->db->bind(':pattern','%'.$username.'%');
+
+        $this->db->bind(':pattern', $search);
+        $this->db->bind(':username', $username);
+
+        $row = $this->db->fetch_all();
+        return $row;
+    }
+    public function search_profile($username)
+    {
+         $this->db->query('SELECT id,username,profile FROM users WHERE username = :username ');
+        // $this->db->bind(':pattern','%'.$username.'%');
+
+        $this->db->bind(':username', $username);
+        $row = $this->db->single_result();
+        if ($this->db->row_count() > 0) {
+            return $row;
+        } else {
+            return [];
+        }
+    }
+    public function search_beginlike_profile($username)
+    {
+        $search =$username . '%';
+        $this->db->query('SELECT id,username,profile FROM users
+         WHERE username like :pattern && id NOT IN (SELECT id FROM users WHERE username = :username ) ORDER BY username ASC');
+
+        // $this->db->bind(':pattern','%'.$username.'%');
+
+        $this->db->bind(':pattern', $search);
+        $this->db->bind(':username', $username);
+
+        $row = $this->db->fetch_all();
+        return $row;
     }
 }

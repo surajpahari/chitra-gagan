@@ -102,3 +102,7 @@
   justify-content: space-around;
   align-items: center;
 }
+/* plus */
+.uploader:hover{
+  cursor: pointer;
+}

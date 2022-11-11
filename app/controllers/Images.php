@@ -7,6 +7,7 @@ class Images extends Controller
       redirect('users/login');
     }
     $this->image_model = $this->model('Image');
+    $this->new_data = array ();
   }
   public function index()
   {
@@ -19,18 +20,17 @@ class Images extends Controller
     $row3 = array();
 
     array_push($row1, $data[0]);
-    for ($i = 0; $i < count($data); $i++) {
-      if (($i + 3) % 3 == 0) {
+    for ($i = 1; $i < count($data); $i++) {
+      if (($i + 2) % 3 == 0) {
         array_push($row1, $data[$i]);
-      } elseif (($i + 2) % 3 == 0) {
+      } elseif (($i + 1) % 3 == 0) {
         array_push($row2, $data[$i]);
-      } elseif ($i + 1 % 3 == 0) {
+      } elseif ($i % 3 == 0) {
         array_push($row3, $data[$i]);
       }
     }
 
     $newData = array($row1, $row2, $row3);
-
     $this->view('pages/mygallery', $newData);
   }
   public function get_image_info($image_id)
@@ -84,6 +84,7 @@ class Images extends Controller
               move_uploaded_file($f_temp, $f_destination);
               $this->image_model->upload_images($data['user_id'], $f_newname);
               $this->index();
+              $this->view('pages/mygallery', $this->new_data);
             } else {
               echo ("yout file is too big");
             }

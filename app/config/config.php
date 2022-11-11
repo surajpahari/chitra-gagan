@@ -18,3 +18,8 @@ define('UPLD_FILE','/srv/http/uploads/');
 define('PROF_FOLD','/srv/http/profile/');
 //defining the host
 define('SITE','http://localhost/');
+//relative upload folder
+define('RUPLD_FILE','http://localhost/uploads/');
+//relative profile folder
+define('RPROF_FOLD','http://localhost/profile/');
+

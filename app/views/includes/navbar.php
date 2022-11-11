@@ -5,6 +5,16 @@
     </h2>
     <div class="nav__profile">
       <?php if (isset($_SESSION['user_id'])) : ?>
+        
+        <div class="search">
+            <form action="<?php echo URLROOT; ?>/users/profile_search" method="GET">
+                <input type="text"
+                    placeholder="Profile/Images"
+                    name="search" d>
+                    <input type="submit" name="submit" value="submit">
+            </form>
+        </div>
+        
         <div class="dropdown">
           <div class="nav__profile-image">
           <img  id ="navProfile" src="" alt=<?=$uid = $_SESSION['user_id']?> />

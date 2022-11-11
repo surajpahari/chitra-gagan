@@ -1,6 +1,7 @@
 // const site = "http://localhost/Chitra-Gagan/";
 var currentalt;
 var currentlikes;
+var currentUploaderId;
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -10,6 +11,7 @@ var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
 var downloadLink = document.getElementById("downloadLink");
 var currentImageFile;
+var noice = "haha";
 console.log(downloadLink);
 
 for (i = 0; i < images.length; i++) {
@@ -21,11 +23,14 @@ for (i = 0; i < images.length; i++) {
     console.log(this.src);
     captionText.innerHTML = this.alt;
     let requestFor = extract_info(this.alt);
+    console.log(extract_info);
     currentalt = this.alt;
     fetchImageData(requestFor.image_id);
     fetchCreatorData(requestFor.id);
+    visitProfile(requestFor.id);
     let source = this.src;
     checkIfLiked(this.alt);
+    // visitProfile();
     // console.log(mesg);
     // console.log("haha");
   };
@@ -79,10 +84,11 @@ function fetchCreatorData(userId) {
   xhttp.send();
 }
 function setUserInfo(userInfo) {
+  console.log('username is '+ userInfo.username)
+  console.log('username is '+ userInfo.profile)
   document.getElementById("modalUsername").innerHTML = userInfo.username;
   // let profileSource = document.getElementById('modalProfile').src.split('X:');
-
-  document.getElementById("modalProfile").src = profile + userInfo.profile;
+    document.getElementById("modalProfile").src = profile + userInfo.profile;
 }
 
 function setImageInfo(imageInfo) {
@@ -170,16 +176,8 @@ function setDownloadLink(imageInfo) {
   });
 }
 function download_file(file) {
-  // console.log("hello safed kapda");
-  // console.log(file);
-  // const xhttp = new XMLHttpRequest();
-  // xhttp.onreadystatechange = function () {
-  //   if (this.readyState == 4 && this.status == 200) {
-  //     console.log(this.responseText);
-  //   }
-  // };
-  // console.log(site + "images/download_file/" + file);
-  // xhttp.open("POST", site + "images/download_file/" + file, true);
-  // xhttp.send();
   window.location = site + "images/downloads_file/" + file;
+}
+function visit_profile(){
+
 }
