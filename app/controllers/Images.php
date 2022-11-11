@@ -191,4 +191,53 @@ class Images extends Controller
     $data = $this->image_model->fetch_profile($uid);
     echo json_encode(json_decode(json_encode($data), true));
   }
+
+  public function download_file($file)
+  {
+    // echo "file aay file";
+
+    if (!empty($file)) {
+      $filename = basename($file);
+      $separate_array = explode('.', $filename);
+      $filepath = UPLD_FILE . $filename;
+      if (!empty($filename) &&  file_exists($filepath)) {
+        // //Define header
+        // header("Cache-Control: public");
+        // header("Content-Description: File Transfer");
+        // header("Content-Description: attachment; fileame=zip");
+        // header("Content-Type: application/zip");
+        // header("Content-Transfer-Emcoding:binary");
+        // echo("download ta vayo");
+        // // ($separate_array);
+        header("Pragma: public", true);
+        header("Expires: 0"); // set expiration time
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");
+        header("Content-Disposition: attachment; filename=" . basename($file));
+        header("Content-Transfer-Encoding: binary");
+        header("Content-Length: " . filesize($file));
+        die(file_get_contents($file));
+
+        readfile($filepath);
+        exit;
+      } else {
+        echo "This File does not exist";
+      }
+    }
+  }
+
+  public function downloads_file($file){
+    // $file = $_GET['filename'];
+    $filename = basename( $file );
+    $filepath = UPLD_FILE.$filename;
+    try {
+        header( 'Content-type: image/*' );
+        header( "Content-Disposition: attachment; filename=\"$filepath\"" );
+        readfile( $filepath);
+    } catch ( Exception $ex ) {
+        echo $ex->getMessage();
+    }
+  }
 }

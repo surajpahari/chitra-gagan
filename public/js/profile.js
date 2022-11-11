@@ -1,5 +1,3 @@
-// const site = "http://localhost/Chitra-Gagan/";
-// const profile = "http://localhost/profile/";
 var navProfile = document.getElementById("navProfile");
 var $userid = parseInt(navProfile.alt);
 

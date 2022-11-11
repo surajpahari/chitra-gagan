@@ -22,7 +22,7 @@
         </div>
         <div class="imageInfo">
           <div class="imageActions">
-            <button class="btn btn-primary">Download</button>
+            <button class="btn btn-primary" id="downloadLink">Download</button>
             <button class="btn btn-success" id="likeButton"><i class="uil uil-thumbs-up"></i></button>
           </div>
           <div>

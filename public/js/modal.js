@@ -1,5 +1,4 @@
-const site = "http://localhost/Chitra-Gagan/";
-const profile = "../../profile/";
+// const site = "http://localhost/Chitra-Gagan/";
 var currentalt;
 var currentlikes;
 // Get the modal
@@ -9,6 +8,9 @@ var modal = document.getElementById("myModal");
 var images = document.getElementsByClassName("display-image");
 var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
+var downloadLink = document.getElementById("downloadLink");
+var currentImageFile;
+console.log(downloadLink);
 
 for (i = 0; i < images.length; i++) {
   images[i].onclick = function () {
@@ -16,11 +18,13 @@ for (i = 0; i < images.length; i++) {
     this.info = this;
     modal.style.display = "flex";
     modalImg.src = this.src;
+    console.log(this.src);
     captionText.innerHTML = this.alt;
     let requestFor = extract_info(this.alt);
     currentalt = this.alt;
     fetchImageData(requestFor.image_id);
     fetchCreatorData(requestFor.id);
+    let source = this.src;
     checkIfLiked(this.alt);
     // console.log(mesg);
     // console.log("haha");
@@ -47,9 +51,14 @@ function fetchImageData(imageId) {
       let response = JSON.parse(this.responseText);
       console.log(response);
       setImageInfo(response);
+      setDownloadLink(response);
     }
   };
-  xhttp.open("POST", site + "images/get_image_info/" + extract_info(currentalt).image_id, true);
+  xhttp.open(
+    "POST",
+    site + "images/get_image_info/" + extract_info(currentalt).image_id,
+    true
+  );
   xhttp.send();
 }
 
@@ -62,7 +71,11 @@ function fetchCreatorData(userId) {
       setUserInfo(response);
     }
   };
-  xhttp.open("POST", site + "images/get_creator_info/" + extract_info(currentalt).id, false);
+  xhttp.open(
+    "POST",
+    site + "images/get_creator_info/" + extract_info(currentalt).id,
+    false
+  );
   xhttp.send();
 }
 function setUserInfo(userInfo) {
@@ -90,20 +103,20 @@ likeButton.addEventListener("click", () => {
     setLiked();
     likePlus(currentalt);
   } else {
-    unsetLiked()
+    unsetLiked();
     likeSub(currentalt);
   }
   // console.log(likeButtonStatus);
 });
- 
-function setLiked(){
+
+function setLiked() {
   likeButtonStatus = 1;
-  likeButton.innerHTML = '<i class="uil uil-thumbs-up"></i>'
+  likeButton.innerHTML = '<i class="uil uil-thumbs-up"></i>';
   likeButton.style.color = "red";
 }
-function unsetLiked(){
+function unsetLiked() {
   likeButtonStatus = 0;
-  likeButton.innerHTML = '<i class="uil uil-thumbs-up"></i>'
+  likeButton.innerHTML = '<i class="uil uil-thumbs-up"></i>';
   likeButton.style.color = "white";
 }
 function likePlus(alt) {
@@ -113,7 +126,6 @@ function likePlus(alt) {
       if (this.responseText == "1") {
         currentlikes++;
         document.getElementById("likeCount").innerHTML = currentlikes;
-
       }
     }
   };
@@ -126,8 +138,8 @@ function likeSub(alt) {
   request.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText == "1") {
-         document.getElementById("likeCount").innerHTML = currentlikes -1;
-         currentlikes--;
+        document.getElementById("likeCount").innerHTML = currentlikes - 1;
+        currentlikes--;
       }
     }
   };
@@ -141,12 +153,33 @@ function checkIfLiked(alt) {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText == "1") {
         setLiked();
-      }
-      else{
+      } else {
         unsetLiked();
       }
     }
   };
   xhttp.open("POST", site + "images/check_like/" + alt, true);
   xhttp.send();
+}
+function setDownloadLink(imageInfo) {
+  // console.log(imageInfo.location);
+  downloadLink.addEventListener("click", function () {
+    download_file(imageInfo.location);
+      // console.log(imageInfo.location);
+    // console.log("here01  ".imageInfo.location);
+  });
+}
+function download_file(file) {
+  // console.log("hello safed kapda");
+  // console.log(file);
+  // const xhttp = new XMLHttpRequest();
+  // xhttp.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     console.log(this.responseText);
+  //   }
+  // };
+  // console.log(site + "images/download_file/" + file);
+  // xhttp.open("POST", site + "images/download_file/" + file, true);
+  // xhttp.send();
+  window.location = site + "images/downloads_file/" + file;
 }
