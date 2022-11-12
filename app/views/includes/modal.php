@@ -18,7 +18,7 @@
           <p class="modalUsername" id="modalUsername"></p>
         </div>
         <div class="caption">
-          <span id="caption">cap</span>
+          <span id="imageTitle"></span>
         </div>
         <div>
           <div class="imageProperty">

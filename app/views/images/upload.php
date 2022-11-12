@@ -82,7 +82,7 @@
 		<form action="<?php echo URLROOT; ?>/images/upload" method="POST" enctype="multipart/form-data">
 			<!-- <label for="title">Resource Title</label> -->
 			<br>
-			<input type="text" name="title" placeholder="Image Title ....">
+			<input type="text" name="title" placeholder="Image Title ...." required>
 			<br>
 			<input id="rlInput"type="file" name="file">
 			<input type="submit" name="submit" value="submit">

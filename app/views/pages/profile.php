@@ -1,6 +1,5 @@
 <?php require APPROOT . '/views/includes/header.php'; ?>
 <?php require APPROOT . '/views/includes/navbar.php'; ?>
-
  	<div class="gallery" id="formBox">
 		<!-- <h1>change your profile</h1> -->
 	<form action="<?php echo URLROOT; ?>/images/profile_upload" method="POST" enctype="multipart/form-data">
