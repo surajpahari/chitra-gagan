@@ -76,6 +76,8 @@ class Users extends Controller
             //validate username
             if (empty($data['username'])) {
                 $data['username_err'] = 'Please enter username';
+            } elseif (strlen($data['username']) < 6) {
+                $data['username_err'] = 'username must be at least 6 character';
             } else {
                 //check email
                 if ($this->user_model->find_user_by_username($data['username'])) {
@@ -115,9 +117,9 @@ class Users extends Controller
                 }
             } else {
                 echo 'not validated';
-                print_r($data);
+                // print_r($data);
                 //load view with errors
-                // $this->view('users/register', $data);
+                $this->view('users/register', $data);
             }
         } else {
             //Init data
@@ -183,7 +185,7 @@ class Users extends Controller
                 echo 'not validated';
                 print_r($data);
                 //load view with errors
-                // $this->view('users/register', $data);
+                $this->view('users/login', $data);
             }
         } else {
             //Init data
@@ -219,31 +221,36 @@ class Users extends Controller
     }
     public function profile_search()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+        if (isset($_SESSION['user_id'])) {
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-            // $_GET = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-            $search_value = trim($_GET['search']);
-            $filtered_search = htmlspecialchars($search_value);
-            $data = array();
-            $data1 = $this->user_model->search_profile($filtered_search);
-            if (!empty($data1)) {
-                $data["exact_user"] = $data1;
-            }
-            if (strlen($filtered_search) >= 0) {
-                $data2 = $this->user_model->search_beginlike_profile($filtered_search);
-                // $data3 = $this->user_model->search_like_profile($filtered_search);
-
-                if (!empty($data2)) {
-                    $data["approx_user"] = $data2;
+                // $_GET = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $search_value = trim($_GET['search']);
+                $filtered_search = htmlspecialchars($search_value);
+                $data = array();
+                $data1 = $this->user_model->search_profile($filtered_search);
+                if (!empty($data1)) {
+                    $data["exact_user"] = $data1;
                 }
-                // if (!empty($data3)) {
-                //     array_push($data, $data3);
-                // }
+                if (strlen($filtered_search) >= 0) {
+                    $data2 = $this->user_model->search_beginlike_profile($filtered_search);
+                    // $data3 = $this->user_model->search_like_profile($filtered_search);
+
+                    if (!empty($data2)) {
+                        $data["approx_user"] = $data2;
+                    }
+                    // if (!empty($data3)) {
+                    //     array_push($data, $data3);
+                    // }
+                }
+                $this->view("pages/search_view", $data);
+                // return $data;
             }
-            $this->view("pages/search_view", $data);
-            // return $data;
+        } else {
+            redirect('users/login');
         }
     }
+
     public function visit_profile($uid)
     {
         if (isset($_SESSION['user_id'])) {
