@@ -30,7 +30,8 @@ class Images extends Controller
       }
     }
 
-    $newData = array($row1, $row2, $row3);
+    $newData['images']= array($row1, $row2, $row3);
+    $newData['mygallery']=true;
     $this->view('pages/mygallery', $newData);
   }
   public function get_image_info($image_id)
@@ -207,5 +208,10 @@ class Images extends Controller
   {
     $data = getimagesize(UPLD_FILE . $file);
     echo json_encode(json_decode(json_encode($data), true));
+  }
+  function delete_users_image($image_id){
+    if($this->image_model->delete_image($image_id)){
+      $this->index();
+    }
   }
 }

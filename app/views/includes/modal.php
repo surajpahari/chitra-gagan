@@ -39,6 +39,15 @@
           <div>
             <span>Likes: </span><span id="likeCount"></span>
           </div>
+          <?php if (isset($data)) : ?>
+            <?php if (isset($data['mygallery'])) : ?>
+              <?php if ($data['mygallery']) : ?>
+                <div>
+                <button class="btn btn-danger" id="modalDeleteButton"><i class="uil uil-image-times"></i></i></button>
+                </div>
+              <?php endif ?>
+            <?php endif ?>
+          <?php endif ?>
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ class Pages extends Controller
       }
     }
 
-    $newData = array($row1, $row2, $row3);
+    $newData['images']= array($row1, $row2, $row3);
     $this->view('pages/index', $newData);
   }
   public function about()
@@ -37,26 +37,28 @@ class Pages extends Controller
   public function mygallery()
   {
     if (isset($_SESSION['user_id'])) {
+      $data=[];
       $uid = $_SESSION['user_id'];
-      $data = $this->image_model->get_images($uid);
-
+      $result = $this->image_model->get_images($uid);
       $row1 = array();
       $row2 = array();
       $row3 = array();
 
-      array_push($row1, $data[0]);
-      for ($i = 1; $i < count($data); $i++) {
+      array_push($row1, $result[0]);
+      for ($i = 1; $i < count($result); $i++) {
         if (($i + 2) % 3 == 0) {
-          array_push($row1, $data[$i]);
+          array_push($row1, $result[$i]);
         } elseif (($i + 1) % 3 == 0) {
-          array_push($row2, $data[$i]);
+          array_push($row2, $result[$i]);
         } elseif ($i % 3 == 0) {
-          array_push($row3, $data[$i]);
+          array_push($row3, $result[$i]);
         }
       }
 
       $newData = array($row1, $row2, $row3);
-      $this->view('pages/mygallery', $newData);
+      $data['images']=$newData;
+      $data['mygallery']=true;
+      $this->view('pages/mygallery', $data);
     } else {
       $this->view(SITE);
     }
@@ -149,5 +151,10 @@ class Pages extends Controller
   //         $
   //     }
   // }
+}
+function delete_users_image($image_id){
+  if($this->image_model->delete_image($image_id)){
+    $this->mygallery();
+  }
 }
 }

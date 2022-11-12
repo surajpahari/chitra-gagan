@@ -177,4 +177,13 @@ class Image
         $row = $this->db->fetch_all();
         return $row;
     }
+    public function delete_image($image_id)
+    {
+        $this->db->query('DELETE FROM images WHERE id = :image_id');
+        $this->db->bind(':image_id',$image_id);
+        if($this->db->execute()){
+            return true;
+        }   
+       return false;
+    }
 }

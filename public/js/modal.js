@@ -10,6 +10,7 @@ var images = document.getElementsByClassName("display-image");
 var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
 var downloadLink = document.getElementById("downloadLink");
+var currentImageId;
 var currentImageFile;
 // console.log(downloadLink);
 
@@ -22,10 +23,11 @@ for (i = 0; i < images.length; i++) {
     // console.log(this.src);
     // captionText.innerHTML = this.alt;
     let requestFor = extract_info(this.alt);
-    console.log(extract_info);
+    console.log(extract_info(this.alt));
     currentalt = this.alt;
     fetchImageData(requestFor.image_id);
     fetchCreatorData(requestFor.id);
+    currentImageId = requestFor.image_id;
     visitProfile(requestFor.id);
     let source = this.src;
     checkIfLiked(this.alt);
@@ -217,4 +219,28 @@ function setImageProperty(properties) {
 function extractHeightWidth(dimension) {
   let data = dimension.split('"');
   return { width: data[1], height: data[3] };
+}
+
+
+//image deletion
+
+function deleteImage($imageid) {
+  // const xhttp = new XMLHttpRequest();
+  // xhttp.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     // let response = JSON.parse(this.responseText);
+  //     console.log(this.responseText);
+  window.location = site + "pages/delete_users_image/" + currentImageId;
+  //    }
+  // };
+  // xhttp.open("POST", site + "images/delete_users_image/" + $imageid, true);
+  // xhttp.send();
+}
+var deleteButton = document.getElementById('modalDeleteButton');
+if(deleteButton){
+  deleteButton.addEventListener('click',function (){
+    console.log(currentImageId);
+    // c 
+    deleteImage(currentImageId);
+  })
 }
