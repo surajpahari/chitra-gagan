@@ -6,7 +6,7 @@
         <?php if (!empty($data['exact_user'])) : ?>
             <h3 style="text-align:center" ;>User</h3>
             <?php $exact_users = $data['exact_user']; ?>
-            <div class="uploader">
+            <div class="searchedUploader">
                 <div class="nav__profile-image">
                     <img class="searchedProfile" id="<?php echo "searchedProfileImage" . $result_check ?>" src="<?php echo RPROF_FOLD . $exact_users->profile; ?>" alt="<?php echo $exact_users->profile . "X:" . $exact_users->id ?>" />
                 </div>
@@ -22,7 +22,7 @@
             <h3 style="text-align:center" ;>Related Users</h3>
             <?php $approx_users = $data['approx_user']; ?>
             <?php foreach ($approx_users as $user) : ?>
-                <div class="uploader">
+                <div class="searchedUploader">
                     <div class="nav__profile-image">
                         <img class="searchedProfile" id="<?php echo "searchedProfileImage" . $result_check ?>" src="<?php echo RPROF_FOLD . $user['profile']; ?>" alt="<?php echo $user['profile'] . "X:" . $user['id'] ?>" />
                     </div>
@@ -70,7 +70,7 @@
         </div>
     <?php endif; ?>
 <?php endif; ?>
-
+<script type="text/javascript" src="<?php echo URLROOT;?>/js/search.js"></script>
 <?php require APPROOT . '/views/includes/modal.php'; ?>
 <script type="text/javascript" src="<?php echo URLROOT; ?>/js/modal.js"></script>
 <?php require APPROOT . '/views/includes/footer.php'; ?>
