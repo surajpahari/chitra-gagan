@@ -47,8 +47,8 @@ class Images extends Controller
   public function upload()
   {
     $data = [];
-    $data['user_id'] = $_SESSION['user_id'];
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $data['user_id'] = $_SESSION['user_id'];
 
       if (isset($_POST["submit"])) {
         //getting the details of the files that is uploaded
@@ -64,8 +64,11 @@ class Images extends Controller
         $title = trim($_POST['title']);
         $title = htmlspecialchars($title);
         $title = ltrim($title);
+        $data["image_title"] = $title;
         if (empty($title)) {
-          $this->view('images/upload');
+          $data["title_err"] = "Empty title file";
+          $data["upload_err"] = '';
+          $this->view('images/upload', $data);
         } else {
           //getting the extension of file that is uploaded
           //explode separate the string into parts from given point and store it in array
@@ -81,34 +84,46 @@ class Images extends Controller
           //in_array(value,arr) function checks the given value in the given arr
           if (in_array($f_ext, $allowed)) {
             if ($f_error === 0) {
-              if ($f_size < 100000000) {
+              if ($f_size < 10000000000) {
                 $f_newname = uniqid('', true) . "." . $f_ext;
                 $f_destination = UPLD_FILE . "/" . $f_newname;
                 move_uploaded_file($f_temp, $f_destination);
-                $this->image_model->upload_images($data['user_id'], $f_newname,$title);
+                $this->image_model->upload_images($data['user_id'], $f_newname, $title);
                 $this->index();
                 $this->view('pages/mygallery', $this->new_data);
               } else {
-                echo ("yout file is too big");
+                $data["upload_err"] = "File is too big";
+                $this->view('images/upload', $data);
               }
             } else {
-              echo "Error uploading your file";
+              $data["upload_err"] = "Error uploading your file";
+              $this->view('images/upload', $data);
             }
           } else {
-            echo ("This type of file is not allowed");
+            $data["upload_err"] = "This type of file is not allowed";
+            $this->view('images/upload', $data);
           }
         }
         //uploading file in datbase matching with title
         // header("Location:../fronts/resource.php");
       } else {
-        echo "cannot be connected";
+        $data["upload_err"] = "cannot be connected";
+        $this->view('images/upload', $data);
+
         // var_dump($_POST);
       }
       // $data=[];
 
       // header('images/index');;
     } else {
-      $this->view('images/upload');
+      $data = [
+        'image_title' => '',
+        'upload_err' => '',
+        'title_err' => '',
+
+
+      ];
+      $this->view('images/upload', $data);
     }
   }
 
@@ -132,66 +147,7 @@ class Images extends Controller
     echo $data;
   }
 
-  //for profile picture
-  public function profile_upload()
-  {
-    $data = [];
-    $data['user_id'] = $_SESSION['user_id'];
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-      if (isset($_POST["submit"])) {
-        //getting the tilte of the image
-        //getting the details of the files that is uploaded
-        $file = $_FILES['file'];
-        // var_dump($_FILES);
-        $f_name = $_FILES['file']['name'];
-        $f_temp = $_FILES['file']['tmp_name'];
-        $f_error = $_FILES['file']['error'];
-        $f_size = $_FILES['file']['size'];
-        $f_type = $_FILES['file']['type'];
-        $f_newname = "";
-        //getting the extension of file that is uploaded
-        //explode separate the string into parts from given point and store it in array
-        $f_sep = explode('.', $f_name);
-
-        //end(arr) gives the value of last index of the array 
-        //strlower() lowers the sting case
-        $f_ext = strtolower(end($f_sep));
-
-        //determining which extension is allowed
-        $allowed = array('png', 'jpeg', 'jpg');
-
-        //in_array(value,arr) function checks the given value in the given arr
-        if (in_array($f_ext, $allowed)) {
-          if ($f_error === 0) {
-            if ($f_size < 100000000) {
-              $f_newname = uniqid('', true) . "." . $f_ext;
-              $f_destination = PROF_FOLD . "/" . $f_newname;
-              move_uploaded_file($f_temp, $f_destination);
-              $this->image_model->profile_upload($data['user_id'], $f_newname);
-              $this->index();
-            } else {
-              echo ("yout file is too big");
-            }
-          } else {
-            echo "Error uploading your file";
-          }
-        } else {
-          echo ("This type of file is not allowed");
-        }
-        //uploading file in datbase matching with title
-        // header("Location:../fronts/resource.php");
-      } else {
-        echo "cannot be connected";
-        // var_dump($_POST);
-      }
-      // $data=[];
-
-      // header('images/index');;
-    } else {
-      $this->view('pages/profile_edit');
-    }
-  }
+  //for profile pictur
   public function get_profile($uid)
   {
     $data = $this->image_model->fetch_profile($uid);

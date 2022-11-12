@@ -6,7 +6,7 @@
 		<form class="entryform" action="<?php echo URLROOT; ?>/images/upload" method="POST" enctype="multipart/form-data">
 			<!-- <label for="title">Resource Title</label> -->
 			<div class="form-options">
-				<input type="text" name="title" value="<?php echo (!empty($data['title_err'])) ? $data['username_err'] : ''?>" placeholder="Image Title ...." required>
+				<input type="text" name="title" placeholder="Image Title ...." required>
 			</div>
 			<?php if (!empty($data['title_err'])) : ?>
 				<div class="form-options">
@@ -18,7 +18,7 @@
 			</div>
 			<?php if (!empty($data['upload_err'])) : ?>
 				<div class="form-options">
-					<span class="form-span"> <?php echo (!empty($data['upload_err'])) ? $data['upload_err'] : ''; ?> </span>
+					<span class="form-span"> <?php echo (!empty($data['upload_err'])) ? $data['username_err'] : ''; ?> </span>
 				</div>
 			<?php endif; ?>
 			<div class="form-options uploadbtn">

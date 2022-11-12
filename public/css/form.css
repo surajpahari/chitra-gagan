@@ -76,3 +76,10 @@
   color: var(--color-primary);
   font-size: 17px;
 }
+.form-wrapper-profile{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
