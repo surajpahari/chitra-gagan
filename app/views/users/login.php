@@ -9,17 +9,17 @@
     <div class="form-options">
       <input type="username" name="username" id="username" value="<?php echo $data['username']; ?>" placeholder="Your Username" />
     </div>
-    <?php if (!empty($data['username_error'])) : ?>
+    <?php if (!empty($data['username_err'])) : ?>
       <div class="form-options">
-        <span class="form-span"> <?php echo (!empty($data['username_error'])) ? $data['username_error'] : ''; ?> </span>
+        <span class="form-span"> <?php echo (!empty($data['username_err'])) ? $data['username_err'] : ''; ?> </span>
       </div>
     <?php endif; ?>
     <div class="form-options">
       <input type="password" name="password" id="password" value="<?php echo $data['password']; ?>" placeholder="Your Password" />
     </div>
-    <?php if (!empty($data['password_error'])) : ?>
+    <?php if (!empty($data['password_err'])) : ?>
       <div class="form-options">
-        <span class="form-span"> <?php echo (!empty($data['password_error'])) ? $data['password_error'] : ''; ?> </span>
+        <span class="form-span"> <?php echo (!empty($data['password_err'])) ? $data['password_err'] : ''; ?> </span>
       </div>
     <?php endif; ?>
     <div class="form-options">
