@@ -68,6 +68,9 @@ class Pages extends Controller
       $data = $this->image_model->fetch_profile($uid);
       $this->view('pages/profile_upload', $data);
     }
+    else{
+      redirect('users/login');
+    }
   }
   // public function profile($uid){
   //     if($uid == $_SESSION['user_id']){

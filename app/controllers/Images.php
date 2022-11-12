@@ -61,38 +61,42 @@ class Images extends Controller
         $f_type = $_FILES['file']['type'];
         $f_newname = "";
         //getting the title heading
-        $title = $_POST["title"];
+        $title = trim($_POST['title']);
+        $title = htmlspecialchars($title);
+        $title = ltrim($title);
+        if (empty($title)) {
+          $this->view('images/upload');
+        } else {
+          //getting the extension of file that is uploaded
+          //explode separate the string into parts from given point and store it in array
+          $f_sep = explode('.', $f_name);
 
+          //end(arr) gives the value of last index of the array 
+          //strlower() lowers the sting case
+          $f_ext = strtolower(end($f_sep));
 
-        //getting the extension of file that is uploaded
-        //explode separate the string into parts from given point and store it in array
-        $f_sep = explode('.', $f_name);
+          //determining which extension is allowed
+          $allowed = array('png', 'jpeg', 'jpg');
 
-        //end(arr) gives the value of last index of the array 
-        //strlower() lowers the sting case
-        $f_ext = strtolower(end($f_sep));
-
-        //determining which extension is allowed
-        $allowed = array('png', 'jpeg', 'jpg');
-
-        //in_array(value,arr) function checks the given value in the given arr
-        if (in_array($f_ext, $allowed)) {
-          if ($f_error === 0) {
-            if ($f_size < 100000000) {
-              $f_newname = uniqid('', true) . "." . $f_ext;
-              $f_destination = UPLD_FILE . "/" . $f_newname;
-              move_uploaded_file($f_temp, $f_destination);
-              $this->image_model->upload_images($data['user_id'], $f_newname);
-              $this->index();
-              $this->view('pages/mygallery', $this->new_data);
+          //in_array(value,arr) function checks the given value in the given arr
+          if (in_array($f_ext, $allowed)) {
+            if ($f_error === 0) {
+              if ($f_size < 100000000) {
+                $f_newname = uniqid('', true) . "." . $f_ext;
+                $f_destination = UPLD_FILE . "/" . $f_newname;
+                move_uploaded_file($f_temp, $f_destination);
+                $this->image_model->upload_images($data['user_id'], $f_newname,$title);
+                $this->index();
+                $this->view('pages/mygallery', $this->new_data);
+              } else {
+                echo ("yout file is too big");
+              }
             } else {
-              echo ("yout file is too big");
+              echo "Error uploading your file";
             }
           } else {
-            echo "Error uploading your file";
+            echo ("This type of file is not allowed");
           }
-        } else {
-          echo ("This type of file is not allowed");
         }
         //uploading file in datbase matching with title
         // header("Location:../fronts/resource.php");
@@ -136,6 +140,7 @@ class Images extends Controller
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       if (isset($_POST["submit"])) {
+        //getting the tilte of the image
         //getting the details of the files that is uploaded
         $file = $_FILES['file'];
         // var_dump($_FILES);

@@ -21,7 +21,7 @@ for (i = 0; i < images.length; i++) {
     modal.style.display = "flex";
     modalImg.src = this.src;
     console.log(this.src);
-    captionText.innerHTML = this.alt;
+    // captionText.innerHTML = this.alt;
     let requestFor = extract_info(this.alt);
     console.log(extract_info);
     currentalt = this.alt;
@@ -96,8 +96,6 @@ function getImageProperty(file) {
   xhttp.send();
 }
 function setUserInfo(userInfo) {
-  console.log("username is " + userInfo.username);
-  console.log("username is " + userInfo.profile);
   document.getElementById("modalUsername").innerHTML = userInfo.username;
   // let profileSource = document.getElementById('modalProfile').src.split('X:');
   document.getElementById("modalProfile").src = profile + userInfo.profile;
@@ -107,6 +105,7 @@ function setImageInfo(imageInfo) {
   console.log(imageInfo);
   currentlikes = imageInfo.likes;
   document.getElementById("likeCount").innerHTML = imageInfo.likes;
+  document.getElementById("imageTitle").innerHTML = imageInfo.title;
   getImageProperty(imageInfo.location);
 }
 

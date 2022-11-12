@@ -10,13 +10,14 @@ class Image
     {
         echo 'get image from database';
     }
-    public function upload_images($uid, $location)
+    public function upload_images($uid, $location,$title)
     {
-        $this->db->query('INSERT INTO images(uid,location) 
-        VALUES(:uid,:location)');
+        $this->db->query('INSERT INTO images(uid,location,title) 
+        VALUES(:uid,:location,:title)');
         // bind values
         $this->db->bind(':uid', $uid);
         $this->db->bind(':location', $location);
+        $this->db->bind(':title', $title);
         if ($this->db->execute()) {
             return true;
         } else {
@@ -166,7 +167,7 @@ class Image
 
 // generate a list of N random values, making sure they're distinct
  
- 
     }
+ 
     
 }
