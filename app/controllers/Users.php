@@ -243,6 +243,25 @@ class Users extends Controller
                     //     array_push($data, $data3);
                     // }
                 }
+
+                $data4 =  $this->image_model->search_image($filtered_search);
+                $row1 = array();
+                $row2 = array();
+                $row3 = array();
+
+                array_push($row1, $data4[0]);
+                for ($i = 1; $i < count($data4); $i++) {
+                    if (($i + 3) % 3 == 0) {
+                        array_push($row1, $data4[$i]);
+                    } elseif (($i + 2) % 3 == 0) {
+                        array_push($row2, $data4[$i]);
+                    } elseif (($i + 1) % 3 == 0) {
+                        array_push($row3, $data4[$i]);
+                    }
+                }
+
+                $new_data4 = array($row1, $row2, $row3);
+                $data["images"] = $new_data4;
                 $this->view("pages/search_view", $data);
                 // return $data;
             }

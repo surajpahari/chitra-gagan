@@ -8,10 +8,10 @@
         
         <div class="search">
             <form action="<?php echo URLROOT; ?>/users/profile_search" method="GET">
-                <input type="text"
+                <input  id="searchInput" type="text"
                     placeholder="Profile/Images"
                     name="search" d>
-                    <input type="submit" name="submit" value="submit">
+                    <input id="searchSubmit" type="submit" name="submit" value="submit">
             </form>
         </div>
         

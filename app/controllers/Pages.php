@@ -14,7 +14,7 @@ class Pages extends Controller
     $row3 = array();
 
     array_push($row1, $data[0]);
-    for ($i = 0; $i < count($data); $i++) {
+    for ($i = 1; $i < count($data); $i++) {
       if (($i + 3) % 3 == 0) {
         array_push($row1, $data[$i]);
       } elseif (($i + 2) % 3 == 0) {

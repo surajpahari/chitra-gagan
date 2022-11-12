@@ -10,7 +10,7 @@ class Image
     {
         echo 'get image from database';
     }
-    public function upload_images($uid, $location,$title)
+    public function upload_images($uid, $location, $title)
     {
         $this->db->query('INSERT INTO images(uid,location,title) 
         VALUES(:uid,:location,:title)');
@@ -160,14 +160,21 @@ class Image
     }
     public function images_sugesstion()
     {
-        $this->db-> query("SELECT MAX(id) FROM images");
+        $this->db->query("SELECT MAX(id) FROM images");
         $this->db->execute();
         $row = $this->db->single_data_count();
-        
 
-// generate a list of N random values, making sure they're distinct
- 
+
+        // generate a list of N random values, making sure they're distinct
+
     }
- 
-    
+    public function search_image($title)
+    {
+        $search =$title . '%';
+        $this->db->query('SELECT  * FROM images WHERE title like :pattern ORDER BY title ASC LIMIT 12');
+        // $this->db->bind();
+        $this->db->bind(':pattern', $search);
+        $row = $this->db->fetch_all();
+        return $row;
+    }
 }
