@@ -11,7 +11,7 @@
         <?php $row = $data[0]; ?>
         <?php foreach ($row as $row1) : ?>
           <?php if (!empty($row1)) : ?>
-            <img class="display-image" src=<?= $path . $row1->location ?> alt=<?= $row1->uid . "X:" . $row1->id ?>>
+            <img class="display-image" src=<?= RUPLD_FILE. $row1->location ?> alt=<?= $row1->uid . "X:" . $row1->id ?>>
           <?php endif; ?>
         <?php endforeach; ?>
       </div>
@@ -20,7 +20,7 @@
         <?php foreach ($data[1] as $row2) : ?>
           <?php if (!empty($row1)) : ?>
 
-            <img class="display-image" src=<?= $path . $row2->location ?> alt=<?= $row2->uid . "X:" . $row2->id ?>>
+            <img class="display-image" src=<?= RUPLD_FILE. $row2->location ?> alt=<?= $row2->uid . "X:" . $row2->id ?>>
           <?php endif; ?>
         <?php endforeach; ?>
       </div>
@@ -29,7 +29,7 @@
         <?php foreach ($data[2] as $row3) : ?>
           <?php if (!empty($row1)) : ?>
 
-            <img class="display-image" src=<?= $path . $row3->location ?> alt=<?= $row3->uid . "X:" . $row3->id ?>>
+            <img class="display-image" src=<?= RUPLD_FILE. $row3->location ?> alt=<?= $row3->uid . "X:" . $row3->id ?>>
           <?php endif; ?>
         <?php endforeach; ?>
       </div>

@@ -105,7 +105,7 @@ class Pages extends Controller
           //in_array(value,arr) function checks the given value in the given arr
           if (in_array($f_ext, $allowed)) {
             if ($f_error === 0) {
-              if ($f_size < 100000000) {
+              if ($f_size < 10000000000) {
                 $f_newname = uniqid('', true) . "." . $f_ext;
                 $f_destination = PROF_FOLD . "/" . $f_newname;
                 move_uploaded_file($f_temp, $f_destination);

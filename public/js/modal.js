@@ -11,8 +11,7 @@ var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
 var downloadLink = document.getElementById("downloadLink");
 var currentImageFile;
-var noice = "haha";
-console.log(downloadLink);
+// console.log(downloadLink);
 
 for (i = 0; i < images.length; i++) {
   images[i].onclick = function () {
@@ -20,7 +19,7 @@ for (i = 0; i < images.length; i++) {
     this.info = this;
     modal.style.display = "flex";
     modalImg.src = this.src;
-    console.log(this.src);
+    // console.log(this.src);
     // captionText.innerHTML = this.alt;
     let requestFor = extract_info(this.alt);
     console.log(extract_info);
@@ -102,7 +101,7 @@ function setUserInfo(userInfo) {
 }
 
 function setImageInfo(imageInfo) {
-  console.log(imageInfo);
+  // console.log(imageInfo);
   currentlikes = imageInfo.likes;
   document.getElementById("likeCount").innerHTML = imageInfo.likes;
   document.getElementById("imageTitle").innerHTML = imageInfo.title;
@@ -208,14 +207,14 @@ function setImageProperty(properties) {
   let width = document.getElementById("imageWidth");
   let type = document.getElementById("imageType");
   let bits = document.getElementById("imageBits");
-  let dimension = extractHeightWidth(properties["3"])
-  width.innerHTML ="width:" + dimension.width;
-  height.innerHTML ="height:" + dimension.height;
-  type.innerHTML ="type:"+ properties.mime;
-  bits.innerHTML = "bits:"+properties.bits;
+  let dimension = extractHeightWidth(properties["3"]);
+  width.innerHTML = "width:" + dimension.width;
+  height.innerHTML = "height:" + dimension.height;
+  type.innerHTML = "type:" + properties.mime;
+  bits.innerHTML = "bits:" + properties.bits;
 }
 //exploding dimension string
-function extractHeightWidth(dimension){
- let data=dimension.split('"');
- return {width:data[1],height:data[3]}
+function extractHeightWidth(dimension) {
+  let data = dimension.split('"');
+  return { width: data[1], height: data[3] };
 }
