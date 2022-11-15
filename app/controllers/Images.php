@@ -30,8 +30,8 @@ class Images extends Controller
       }
     }
 
-    $newData['images']= array($row1, $row2, $row3);
-    $newData['mygallery']=true;
+    $newData['images'] = array($row1, $row2, $row3);
+    $newData['mygallery'] = true;
     $this->view('pages/mygallery', $newData);
   }
   public function get_image_info($image_id)
@@ -48,6 +48,7 @@ class Images extends Controller
   public function upload()
   {
     $data = [];
+    $meta_data = [];
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $data['user_id'] = $_SESSION['user_id'];
 
@@ -66,6 +67,20 @@ class Images extends Controller
         $title = htmlspecialchars($title);
         $title = ltrim($title);
         $data["image_title"] = $title;
+        echo ($_POST['meta_check']);
+        // if ($_POST['meta_check'] == "yes") {
+        $exposure = trim($_POST['exposure']);
+        $meta_data['exposure'] = $exposure;
+        $aperture = trim($_POST['aperture']);
+        $meta_data['aperture'] = $aperture;
+        $shutter_speed = trim($_POST['shutter-speed']);
+        $meta_data['shutter_speed'] = $shutter_speed;
+        $iso = trim($_POST['iso']);
+        $meta_data['iso'] = $iso;
+        $category = trim($_POST['category']);
+        $meta_data['category'] = $category;
+        // }
+
         if (empty($title)) {
           $data["title_err"] = "Empty title file";
           $data["upload_err"] = '';
@@ -89,7 +104,9 @@ class Images extends Controller
                 $f_newname = uniqid('', true) . "." . $f_ext;
                 $f_destination = UPLD_FILE . "/" . $f_newname;
                 move_uploaded_file($f_temp, $f_destination);
-                $this->image_model->upload_images($data['user_id'], $f_newname, $title);
+                // var_dump($meta_data);
+                $this->image_model->upload_images($data['user_id'], $f_newname, $title,$meta_data);
+                // var_dump($meta_data);
                 $this->index();
                 $this->view('pages/mygallery', $this->new_data);
               } else {
@@ -128,23 +145,23 @@ class Images extends Controller
     }
   }
 
-  public function add_like($alt)
+  public function add_like($user_id, $image_id)
   {
-    $info = explode("X:", $alt);
-    $data = $this->image_model->add_like($info[0], $info[1]);
+    // $info = explode("X:", $alt);
+    $data = $this->image_model->add_like($user_id, $image_id);
     echo $data;
   }
-  public  function sub_like($alt)
+  public  function sub_like($user_id, $image_id)
   {
 
-    $info = explode("X:", $alt);
-    $data = $this->image_model->sub_like($info[0], $info[1]);
+    // $info = explode("X:", $alt);
+    $data = $this->image_model->sub_like($user_id, $image_id);
     echo $data;
   }
-  public function check_like($alt)
+  public function check_like($user_id, $image_id)
   {
-    $info = explode("X:", $alt);
-    $data = $this->image_model->check_like($info[0], $info[1]);
+    // $info = explode("X:", $alt);
+    $data = $this->image_model->check_like($user_id, $image_id);
     echo $data;
   }
 
@@ -209,9 +226,15 @@ class Images extends Controller
     $data = getimagesize(UPLD_FILE . $file);
     echo json_encode(json_decode(json_encode($data), true));
   }
-  function delete_users_image($image_id){
-    if($this->image_model->delete_image($image_id)){
+  function delete_users_image($image_id)
+  {
+    if ($this->image_model->delete_image($image_id)) {
       $this->index();
     }
+  }
+  function get_image_meta($image_id)
+  {
+    $data = $this->image_model->fetch_meta_data($image_id);
+    echo json_encode(json_decode(json_encode($data), true));
   }
 }

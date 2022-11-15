@@ -1,6 +1,6 @@
 var navProfile = document.getElementById("navProfile");
 var $userid = parseInt(navProfile.alt);
-
+const USER = $userid;
 function fetchProfileData($uid) {
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {

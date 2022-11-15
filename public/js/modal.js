@@ -31,6 +31,7 @@ for (i = 0; i < images.length; i++) {
     visitProfile(requestFor.id);
     let source = this.src;
     checkIfLiked(this.alt);
+    console.log("userid is " + USER);
     // visitProfile();
     // console.log(mesg);
     // console.log("haha");
@@ -96,6 +97,18 @@ function getImageProperty(file) {
   xhttp.open("POST", site + "images/get_image_property/" + file, false);
   xhttp.send();
 }
+function getImageMeta(image_id) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let response = JSON.parse(this.responseText);
+         setImageMeta(response[0]);
+        // setImage(response);
+    }
+  };
+  xhttp.open("POST", site + "images/get_image_meta/" + image_id, false);
+  xhttp.send();
+}
 function setUserInfo(userInfo) {
   document.getElementById("modalUsername").innerHTML = userInfo.username;
   // let profileSource = document.getElementById('modalProfile').src.split('X:');
@@ -108,6 +121,7 @@ function setImageInfo(imageInfo) {
   document.getElementById("likeCount").innerHTML = imageInfo.likes;
   document.getElementById("imageTitle").innerHTML = imageInfo.title;
   getImageProperty(imageInfo.location);
+  getImageMeta(currentImageId);
 }
 
 //for like
@@ -148,7 +162,12 @@ function likePlus(alt) {
       }
     }
   };
-  xhttp.open("POST", site + "images/add_like/" + alt, true);
+  console.log(USER);
+  xhttp.open(
+    "POST",
+    site + "images/add_like/" + USER + "/" + currentImageId,
+    true
+  );
   xhttp.send();
 }
 
@@ -157,12 +176,17 @@ function likeSub(alt) {
   request.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       if (this.responseText == "1") {
+        console.log(this.response);
         document.getElementById("likeCount").innerHTML = currentlikes - 1;
         currentlikes--;
       }
     }
   };
-  request.open("POST", site + "images/sub_like/" + alt, false);
+  request.open(
+    "POST",
+    site + "images/sub_like/" + USER + "/" + currentImageId,
+    false
+  );
   request.send();
 }
 
@@ -177,7 +201,12 @@ function checkIfLiked(alt) {
       }
     }
   };
-  xhttp.open("POST", site + "images/check_like/" + alt, true);
+  console.log(alt);
+  xhttp.open(
+    "POST",
+    site + "images/check_like/" + USER + "/" + currentImageId,
+    true
+  );
   xhttp.send();
 }
 function setDownloadLink(imageInfo) {
@@ -215,12 +244,31 @@ function setImageProperty(properties) {
   type.innerHTML = "type:" + properties.mime;
   bits.innerHTML = "bits:" + properties.bits;
 }
+function setImageMeta(properties) {
+  let exposure = document.getElementById("exposure");
+  let category = document.getElementById("category");
+  let shutterSpeed = document.getElementById("shutterSpeed");
+  let aperture = document.getElementById("aperture");
+  let iso = document.getElementById("iso");
+  if (properties) {
+    exposure.innerHTML = "exposure:" + properties.exposure;
+    category.innerHTML = "category:" + properties.category;
+    shutterSpeed.innerHTML = "shutter-speed:" + properties.shutter_speed;
+    aperture.innerHTML = "aperture:" + properties.aperture;
+    iso.innerHTML = "iso:" + properties.iso;
+  } else {
+    exposure.innerHTML = "";
+    category.innerHTML = "";
+    shutterSpeed.innerHTML ="";
+    aperture.innerHTML =""; 
+    iso.innerHTML = "";
+  }
+}
 //exploding dimension string
 function extractHeightWidth(dimension) {
   let data = dimension.split('"');
   return { width: data[1], height: data[3] };
 }
-
 
 //image deletion
 
@@ -236,11 +284,11 @@ function deleteImage($imageid) {
   // xhttp.open("POST", site + "images/delete_users_image/" + $imageid, true);
   // xhttp.send();
 }
-var deleteButton = document.getElementById('modalDeleteButton');
-if(deleteButton){
-  deleteButton.addEventListener('click',function (){
+var deleteButton = document.getElementById("modalDeleteButton");
+if (deleteButton) {
+  deleteButton.addEventListener("click", function () {
     console.log(currentImageId);
-    // c 
+    // c
     deleteImage(currentImageId);
-  })
+  });
 }

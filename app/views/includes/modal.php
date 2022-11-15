@@ -23,6 +23,11 @@
         <div class="imageProperty">
           <span id="imageData">
             <ul>
+              <li id="category"></li>
+              <li id="exposure"> </li>
+              <li id="aperture"> </li>
+              <li id="shutterSpeed"> </li>
+              <li id="iso"> </li>
               <!-- <li id = "dimension"> Dimension</li> -->
               <li id="imageWidth">type</li>
               <li id="imageHeight"> Dimension</li>
@@ -43,7 +48,7 @@
             <?php if (isset($data['mygallery'])) : ?>
               <?php if ($data['mygallery']) : ?>
                 <div>
-                <button class="btn btn-danger" id="modalDeleteButton"><i class="uil uil-image-times"></i></i></button>
+                  <button class="btn btn-danger" id="modalDeleteButton"><i class="uil uil-image-times"></i></i></button>
                 </div>
               <?php endif ?>
             <?php endif ?>
